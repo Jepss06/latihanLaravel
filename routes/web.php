@@ -14,6 +14,7 @@ Route::get('/Posts', function () {
     return view('Posts', ['title' => 'Blog', 'page' => 'Blog', 'posts' => [
         [
             'id' => 1,
+            'slug' => 'judul-artikel-1',
             'title' => 'Judul Artikel 1',
             'author' => 'Jepss',
             'body' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi quaerat sit voluptatem optio accusantium
@@ -22,6 +23,7 @@ Route::get('/Posts', function () {
         ],
         [
             'id' => 2,
+            'slug' => 'judul-artikel-2',
             'title' => 'Judul Artikel 2',
             'author' => 'Jeps2',
             'body' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi quaerat sit voluptatem optio accusantium
@@ -31,10 +33,11 @@ Route::get('/Posts', function () {
     ]]);
 });
 
-Route::get('/posts/{id}', function ($id) {
+Route::get('/Posts/{slug}', function ($slug) {
     $posts = [
         [
             'id' => 1,
+            'slug' => 'judul-artikel-1',
             'title' => 'Judul Artikel 1',
             'author' => 'Jepss',
             'body' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi quaerat sit voluptatem optio accusantium
@@ -43,6 +46,7 @@ Route::get('/posts/{id}', function ($id) {
         ],
         [
             'id' => 2,
+            'slug' => 'judul-artikel-2',
             'title' => 'Judul Artikel 2',
             'author' => 'Jeps2',
             'body' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi quaerat sit voluptatem optio accusantium
@@ -51,10 +55,10 @@ Route::get('/posts/{id}', function ($id) {
         ]
     ];
 
-    $post = Arr::first($posts, function ($post) use ($id) {
-        return $post['id'] == $id;
+    $post = Arr::first($posts, function ($post) use ($slug) {
+        return $post['slug'] == $slug;
     });
-    return view('post', ['title' => 'Single Post', 'post' => $post]);
+    return view('Post', ['title' => 'Single Post', 'post' => $post]);
 });
 
 Route::get('/Contact', function () {
