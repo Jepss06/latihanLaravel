@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('Home', ['title' => 'Home Page']);
@@ -11,54 +13,11 @@ Route::get('/About', function () {
     return view('About', ['title' => 'About', 'page' => 'About']);
 });
 Route::get('/Posts', function () {
-    return view('Posts', ['title' => 'Blog', 'page' => 'Blog', 'posts' => [
-        [
-            'id' => 1,
-            'slug' => 'judul-artikel-1',
-            'title' => 'Judul Artikel 1',
-            'author' => 'Jepss',
-            'body' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi quaerat sit voluptatem optio accusantium
-            cupiditate omnis ea quis vitae nobis doloremque illo, incidunt eveniet consequuntur id, necessitatibus ad
-            odit inventore!'
-        ],
-        [
-            'id' => 2,
-            'slug' => 'judul-artikel-2',
-            'title' => 'Judul Artikel 2',
-            'author' => 'Jeps2',
-            'body' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi quaerat sit voluptatem optio accusantium
-            cupiditate omnis ea quis vitae nobis doloremque illo, incidunt eveniet consequuntur id, necessitatibus ad
-            odit inventore!'
-        ]
-    ]]);
+    return view('Posts', ['title' => 'Blog', 'page' => 'Blog', 'posts' => Post::all()]);
 });
 
 Route::get('/Posts/{slug}', function ($slug) {
-    $posts = [
-        [
-            'id' => 1,
-            'slug' => 'judul-artikel-1',
-            'title' => 'Judul Artikel 1',
-            'author' => 'Jepss',
-            'body' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi quaerat sit voluptatem optio accusantium
-            cupiditate omnis ea quis vitae nobis doloremque illo, incidunt eveniet consequuntur id, necessitatibus ad
-            odit inventore!'
-        ],
-        [
-            'id' => 2,
-            'slug' => 'judul-artikel-2',
-            'title' => 'Judul Artikel 2',
-            'author' => 'Jeps2',
-            'body' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi quaerat sit voluptatem optio accusantium
-            cupiditate omnis ea quis vitae nobis doloremque illo, incidunt eveniet consequuntur id, necessitatibus ad
-            odit inventore!'
-        ]
-    ];
-
-    $post = Arr::first($posts, function ($post) use ($slug) {
-        return $post['slug'] == $slug;
-    });
-    return view('Post', ['title' => 'Single Post', 'post' => $post]);
+    return view('Post', ['title' => 'Single Post', 'post' => Post::find($slug)]);
 });
 
 Route::get('/Contact', function () {
