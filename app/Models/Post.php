@@ -2,18 +2,24 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Models\Kategori; // ← Tambahkan baris ini
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'author', 'slug', 'body'];
+    protected $fillable = ['title', 'author', 'body'];
 
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
+
+    public function Kategori(): BelongsTo
+    {
+        return $this->belongsTo(Kategori::class, 'Kategori_id');
+    }
 }
-// App\Models\Post::factory(100)->recycle(User::factory(5)->create())->create()
